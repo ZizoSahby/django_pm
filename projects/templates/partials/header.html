@@ -13,6 +13,19 @@
             <a class="nav-link active" aria-current="{% url 'Project_list' %}" href="#">{% trans "Home" %}</a>
           </li>
         </ul>
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav me-3 mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ user.username }}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">{% trans "Profile" %}</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
+            </ul>
+          </li>
+        </ul>
         <form method="GET" action="{% url 'Project_list' %}" class="d-flex">
           <div class="input-group">
             <input 
@@ -27,6 +40,11 @@
             </button>
           </div>
         </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-outline-light">
+            {% trans "Login" %}
+          </a>
+        {% endif %}
       </div>
     </div>
   </nav>
